@@ -19,37 +19,71 @@ This can be OS packages to install, etc...
 
 ## Setup
 
-### What create_resources affects **OPTIONAL**
+### What create_resources affects
 
 * OS packages
-  impact, or execute.
-* Dependencies that your module automatically installs.
-* Warnings or other important notices.
+* YUM repositoriess
 
-### Setup Requirements **OPTIONAL**
-
-If your module requires anything extra before setting up (pluginsync enabled,
-etc.), mention it here.
-
-If your most recent release breaks compatibility or requires particular steps
-for upgrading, you might want to include an additional "Upgrading" section
-here.
+### Beginning with Create_resources
 
 ## Usage
 
-### Package resource
+To have Puppet manage YUM repositories, you have to declare the `create_resources::yumrepo_name` class:
+
+``` puppet
+class { 'create_resources::yumrepo_name': }
+```
+
+It is advised to run this class before all others.
+
+To do that, make usage of [Puppet Run Stages](https://docs.puppetlabs.com/puppet/latest/reference/lang_run_stages.html) and declare the class the following way in your manifest:
+
+``` puppet
+## Run stages definition
+stage { 'first': before => Stage['main'] }
+stage { 'last': }
+Stage['main'] -> Stage['last']
+case $::osfamily {
+  'RedHat': {
+    class { '::create_resources::yumrepo_name': stage => first }
+  }
+}}
+```
+
+### Managing yumrepo resources
+
+To have Puppet make sure that the [nginx CentOS YUM repository](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/#official-red-hat-centos-packages) is configured, declare the following hiera hash:
+
+``` yaml
+create_resources::yumrepo_name:
+  'nginx':
+    descr: 'nginx repo'
+    baseurl: 'http://nginx.org/packages/centos/$releasever/$basearch/'
+    gpgcheck: 0
+    enabled: 1
+```
+
+To have Puppet remove the [nginx CentOS YUM repository](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/#official-red-hat-centos-packages) above, declare the following hiera hash:
+
+``` yaml
+create_resources::yumrepo_name:
+  'nginx':
+    ensure: absent
+```
+
+### Managing package resources
 
 To have Puppet install `wget` OS package, declare the following hiera hash:
 
 ``` yaml
-create_resources::packages_list:
+create_resources::package_name:
   'wget': {}
 ```
 
 To have Puppet install latest `wget` OS package, declare the following hiera hash:
 
 ``` yaml
-create_resources::packages_list:
+create_resources::package_name:
   'wget':
     ensure: latest
 ```
