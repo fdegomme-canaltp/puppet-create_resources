@@ -31,7 +31,7 @@ This can be OS packages to install, etc...
 To have Puppet manage YUM repositories, you have to declare the `create_resources::yumrepo_name` class:
 
 ``` puppet
-class { 'create_resources::yumrepo_name': }
+class { 'create_resources::yumrepo': }
 ```
 
 It is advised to run this class before all others.
@@ -45,7 +45,7 @@ stage { 'last': }
 Stage['main'] -> Stage['last']
 case $::osfamily {
   'RedHat': {
-    class { '::create_resources::yumrepo_name': stage => first }
+    class { '::create_resources::yumrepo': stage => first }
   }
 }}
 ```
