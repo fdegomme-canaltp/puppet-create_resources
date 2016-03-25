@@ -9,6 +9,8 @@ class create_resources::yumrepo (
     noop   => $is_noop,
   }
 
+  notify { 'The create_resources::yumrepo class has been called': }
+
   if $yumrepo_name {
     create_resources ( yumrepo, hiera_hash('create_resources::yumrepo_name'), $defaults )
   }
