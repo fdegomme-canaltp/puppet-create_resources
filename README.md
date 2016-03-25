@@ -76,14 +76,14 @@ create_resources::yumrepo::yumrepo_list:
 To have Puppet install `wget` OS package, declare the following hiera hash:
 
 ``` yaml
-create_resources::package_name:
+create_resources::package_list:
   'wget': {}
 ```
 
 To have Puppet install latest `wget` OS package, declare the following hiera hash:
 
 ``` yaml
-create_resources::package_name:
+create_resources::package_list:
   'wget':
     ensure: latest
 ```
