@@ -1,6 +1,6 @@
 class create_resources::yumrepo (
   $yumrepo_list   = undef,
-  $yumrepo_ensure = presente,
+  $yumrepo_ensure = present,
   $is_noop        = $create_resources::is_noop,
 ) {
 
