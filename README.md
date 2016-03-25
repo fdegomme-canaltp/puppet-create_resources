@@ -55,7 +55,7 @@ case $::osfamily {
 To have Puppet make sure that the [nginx CentOS YUM repository](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/#official-red-hat-centos-packages) is configured, declare the following hiera hash:
 
 ``` yaml
-create_resources::yumrepo_name:
+create_resources::yumrepo::yumrepo_list:
   'nginx':
     descr: 'nginx repo'
     baseurl: 'http://nginx.org/packages/centos/$releasever/$basearch/'
@@ -66,7 +66,7 @@ create_resources::yumrepo_name:
 To have Puppet remove the [nginx CentOS YUM repository](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/#official-red-hat-centos-packages) above, declare the following hiera hash:
 
 ``` yaml
-create_resources::yumrepo_name:
+create_resources::yumrepo::yumrepo_list:
   'nginx':
     ensure: absent
 ```
