@@ -23,6 +23,11 @@ This can be OS packages to install, etc...
 
 * OS packages
 * YUM repositoriess
+* `/home/` directories and files.
+* `/root/` directories and files.
+* `/etc/passwd`
+* `/etc/shadow`
+* `/etc/group`
 
 ### Beginning with Create_resources
 
@@ -86,6 +91,27 @@ To have Puppet install latest `wget` OS package, declare the following hiera has
 create_resources::package_list:
   'wget':
     ensure: latest
+```
+
+### Managing user and group resources
+
+To have Puppet create the user `toto`, along with its group, declare the following hiera hashes:
+
+``` yaml
+user_group::group_list:
+  'toto':
+    ensure: present
+    gid: 1002
+
+user_group::user_list:
+  'toto':
+    ensure: present
+    uid: 1002
+    gid: 1002
+    comment: 'Toto user_group'
+    home: '/home/toto'
+    managehome: true
+    shell: '/bin/bash'
 ```
 
 ## Reference
