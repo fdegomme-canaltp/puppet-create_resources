@@ -60,7 +60,7 @@ case $::osfamily {
 To have Puppet make sure that the [nginx CentOS YUM repository](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/#official-red-hat-centos-packages) is configured, declare the following hiera hash:
 
 ``` yaml
-create_resources::yumrepo::yumrepo_list:
+create_resources::yumrepo::list:
   'nginx':
     descr: 'nginx repo'
     baseurl: 'http://nginx.org/packages/centos/$releasever/$basearch/'
@@ -71,7 +71,7 @@ create_resources::yumrepo::yumrepo_list:
 To have Puppet remove the [nginx CentOS YUM repository](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/#official-red-hat-centos-packages) above, declare the following hiera hash:
 
 ``` yaml
-create_resources::yumrepo::yumrepo_list:
+create_resources::yumrepo::list:
   'nginx':
     ensure: absent
 ```
@@ -81,14 +81,14 @@ create_resources::yumrepo::yumrepo_list:
 To have Puppet install `wget` OS package, declare the following hiera hash:
 
 ``` yaml
-create_resources::package_list:
+create_resources::package::list:
   'wget': {}
 ```
 
 To have Puppet install latest `wget` OS package, declare the following hiera hash:
 
 ``` yaml
-create_resources::package_list:
+create_resources::package::list:
   'wget':
     ensure: latest
 ```
@@ -98,12 +98,12 @@ create_resources::package_list:
 To have Puppet create the user `toto`, along with its group, declare the following hiera hashes:
 
 ``` yaml
-user_group::group_list:
+user_group::group::list:
   'toto':
     ensure: present
     gid: 1002
 
-user_group::user_list:
+user_group::user::list:
   'toto':
     ensure: present
     uid: 1002

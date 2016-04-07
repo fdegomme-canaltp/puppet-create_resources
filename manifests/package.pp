@@ -1,16 +1,16 @@
 class create_resources::package (
-  $package_list   = $create_resources::package_list,
-  $package_ensure = $create_resources::package_ensure,
-  $is_noop        = $create_resources::is_noop,
+  $list    = undef,
+  $ensure  = installed,
+  $is_noop = $create_resources::is_noop,
 ) {
 
   $defaults = {
-    ensure => $package_ensure,
+    ensure => $ensure,
     noop   => $is_noop,
   }
 
-  if $package_list {
-    create_resources ( package, hiera_hash('create_resources::package_list'), $defaults )
+  if $list {
+    create_resources ( package, hiera_hash('create_resources::package::list'), $defaults )
   }
 
 }
