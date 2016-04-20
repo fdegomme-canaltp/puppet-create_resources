@@ -116,7 +116,7 @@ user_group::user::list:
 
 ### Managing elasticsearch::instance resources
 
-**To have Puppet manage elasticsearch instances:
+To have Puppet manage elasticsearch instances:
 
 - you have to declare the `create_resources::elasticsearch::instance` class:
 
@@ -124,7 +124,7 @@ user_group::user::list:
 class { 'create_resources::elasticsearch::instance': }
 ```
 
-- you also need the [/elasticsearch/elasticsearch](https://forge.puppet.com/elasticsearch/elasticsearch) module to use this functionality.**
+- you also need the [elasticsearch/elasticsearch](https://forge.puppet.com/elasticsearch/elasticsearch) module to use this functionality.
 
 Then to have Puppet create a `es_01` elasticsearch instance, declare the following hiera hash:
 
