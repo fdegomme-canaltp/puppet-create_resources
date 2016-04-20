@@ -33,7 +33,7 @@ This can be OS packages to install, etc...
 
 ## Usage
 
-To have Puppet manage YUM repositories, you have to declare the `create_resources::yumrepo_name` class:
+To have Puppet manage YUM repositories, you have to declare the `create_resources::yumrepo` class:
 
 ``` puppet
 class { 'create_resources::yumrepo': }
@@ -112,6 +112,25 @@ user_group::user::list:
     home: '/home/toto'
     managehome: true
     shell: '/bin/bash'
+```
+
+### Managing elasticsearch::instance resources
+
+**To have Puppet manage elasticsearch instances:
+
+- you have to declare the `create_resources::elasticsearch::instance` class:
+
+``` puppet
+class { 'create_resources::elasticsearch::instance': }
+```
+
+- you also need the [/elasticsearch/elasticsearch](https://forge.puppet.com/elasticsearch/elasticsearch) module to use this functionality.**
+
+Then to have Puppet create a `es_01` elasticsearch instance, declare the following hiera hash:
+
+``` yaml
+create_resources::elasticsearch::instance::list:
+  'es_01': {}
 ```
 
 ## Reference
