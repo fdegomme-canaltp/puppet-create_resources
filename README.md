@@ -133,6 +133,28 @@ create_resources::elasticsearch::instance::list:
   'es_01': {}
 ```
 
+### Managing elasticsearch::plugin resources
+
+To have Puppet manage elasticsearch plugins:
+
+- you have to declare the `create_resources::elasticsearch::plugin` class:
+
+``` puppet
+class { 'create_resources::elasticsearch::plugin': }
+```
+
+- you also need the [elasticsearch/elasticsearch](https://forge.puppet.com/elasticsearch/elasticsearch) module to use this functionality.
+
+Then to have Puppet install the [marvel](https://www.elastic.co/downloads/marvel) elasticsearch plugin, declare the following hiera hash:
+
+``` yaml
+create_resources::elasticsearch::plugin::list:
+  'license':
+    instance: <choose_a_name>
+  'marvel-agent ':
+    instance: <choose_a_name>
+```
+
 ## Reference
 
 Here, include a complete list of your module's classes, types, providers,
