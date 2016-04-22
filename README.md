@@ -150,9 +150,9 @@ Then to have Puppet install the [marvel](https://www.elastic.co/downloads/marvel
 ``` yaml
 create_resources::elasticsearch::plugin::list:
   'license':
-    instance: <choose_a_name>
+    instances: <choose_a_name>
   'marvel-agent ':
-    instance: <choose_a_name>
+    instances: <choose_a_name>
 ```
 
 ## Reference
