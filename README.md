@@ -22,7 +22,8 @@ This can be OS packages to install, etc...
 ### What create_resources affects
 
 * OS packages
-* YUM repositoriess
+* YUM repositories
+* APT repositories
 * `/home/` directories and files.
 * `/root/` directories and files.
 * `/etc/passwd`
@@ -39,7 +40,13 @@ To have Puppet manage YUM repositories, you have to declare the `create_resource
 class { 'create_resources::yumrepo': }
 ```
 
-It is advised to run this class before all others.
+The same way, to have Puppet manage APT repositories, you have to declare the `create_resources::apt::source` class:
+
+``` puppet
+class { 'create_resources::apt::source': }
+```
+
+It is advised to run these classes before all others.
 
 To do that, make usage of [Puppet Run Stages](https://docs.puppetlabs.com/puppet/latest/reference/lang_run_stages.html) and declare the class the following way in your manifest:
 
@@ -51,6 +58,9 @@ Stage['main'] -> Stage['last']
 case $::osfamily {
   'RedHat': {
     class { '::create_resources::yumrepo': stage => first }
+  }
+  'Debian': {
+    class { '::create_resources::apt::source': stage => first }
   }
 }}
 ```
@@ -74,6 +84,21 @@ To have Puppet remove the [nginx CentOS YUM repository](https://www.nginx.com/re
 create_resources::yumrepo::list:
   'nginx':
     ensure: absent
+```
+
+### Managing pat::sources resources
+
+To have Puppet make sure that the [Puppet 3.x jessie APT repository](https://docs.puppet.com/puppet/3.8/reference/install_debian_ubuntu.html) is configured, declare the following hiera hash:
+
+``` yaml
+create_resources::apt::source::list:
+  'puppet':
+    comment: 'puppet 3.x repo'
+    location: 'http://apt.puppetlabs.com'
+    repos: 'main dependencies devel'
+    key:
+      id: '47B320EB4C7C375AA9DAE1A01054B7A24BD6EC30'
+      server: 'pgp.mit.edu'
 ```
 
 ### Managing package resources
