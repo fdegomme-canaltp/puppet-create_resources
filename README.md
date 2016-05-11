@@ -180,6 +180,27 @@ create_resources::elasticsearch::plugin::list:
     instances: <choose_a_name>
 ```
 
+### Managing logstash::configfile resources
+
+To have Puppet manage logstash configfiles:
+
+- you have to declare the `create_resources::logstash::configfile` class:
+
+``` puppet
+class { 'create_resources::logstash::configfile': }
+```
+
+- you also need the [elasticsearch/logstash](https://forge.puppet.com/elasticsearch/logstash) module to use this functionality.
+
+Then to have Puppet create a [`output_es` logstash configfile](https://forge.puppet.com/elasticsearch/logstash#logstash-config-files), declare the following hiera hash:
+
+``` yaml
+create_resources::logstash::configfile::list:
+  'output_es':
+    template: 'logstash/output_es_cluster.erb'
+    order: 30
+```
+
 ## Reference
 
 Here, include a complete list of your module's classes, types, providers,
