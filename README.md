@@ -60,6 +60,7 @@ case $::osfamily {
     class { '::create_resources::yumrepo': stage => first }
   }
   'Debian': {
+    class { '::create_resources::apt::key': stage => first }
     class { '::create_resources::apt::source': stage => first }
   }
 }}
@@ -86,7 +87,19 @@ create_resources::yumrepo::list:
     ensure: absent
 ```
 
-### Managing pat::sources resources
+### Managing apt::key resources
+
+To have Puppet make sure that the [Puppetlabs GPG key](https://forge.puppet.com/puppetlabs/apt#add-gpg-keys) is installed, declare the following hiera hash:
+
+``` yaml
+create_resources::apt::key::list:
+  'puppetlabs':
+    id: '47B320EB4C7C375AA9DAE1A01054B7A24BD6EC30'
+    server: 'pgp.mit.edu'
+    options: 'http-proxy="http://proxyuser:proxypass@example.org:3128"'
+```
+
+### Managing apt::source resources
 
 To have Puppet make sure that the [Puppet 3.x jessie APT repository](https://docs.puppet.com/puppet/3.8/reference/install_debian_ubuntu.html) is configured, declare the following hiera hash:
 

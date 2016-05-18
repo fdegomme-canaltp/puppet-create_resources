@@ -8,7 +8,7 @@ class create_resources::apt::source (
   }
 
   if $list {
-    create_resources ( yumrepo, hiera_hash('create_resources::apt::source::list'), $defaults )
+    create_resources ( 'apt::source', hiera_hash('create_resources::apt::source::list'), $defaults )
   }
 
 }
