@@ -136,12 +136,12 @@ create_resources::package::list:
 To have Puppet create the user `toto`, along with its group, declare the following hiera hashes:
 
 ``` yaml
-user_group::group::list:
+create_resources::group::list:
   'toto':
     ensure: present
     gid: 1002
 
-user_group::user::list:
+create_resources::user::list:
   'toto':
     ensure: present
     uid: 1002
