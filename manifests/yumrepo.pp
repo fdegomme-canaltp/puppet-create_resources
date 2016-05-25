@@ -10,7 +10,6 @@ class create_resources::yumrepo (
   }
 
   if $list {
-    notify { 'toto': }
     create_resources ( yumrepo, hiera_hash('create_resources::yumrepo::list'), $defaults )
   }
 
